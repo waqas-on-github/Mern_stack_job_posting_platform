@@ -4,12 +4,12 @@ import './config/db.js'
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import createError from 'http-errors'
 import logger from 'morgan'
 import CustomError from './utils/CustomError.js'
 
 // import routers
-
+import { router as Jobrouter } from './routes/job.route.js'
+import { router as Userrouter } from './routes/user.route.js'
 // create the express app
 const app = express()
 
@@ -25,11 +25,17 @@ app.use(
 // mount imported routes
 
 
+app.use('/api/v1/job', Jobrouter)
+app.use('/api/v1/user' , Userrouter)
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404))
-})
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.get("/api/v1/test", (req, res) => {
+  res.json({ msg: "test route" });
+});
 
 // error handler
 
@@ -49,5 +55,14 @@ app.use(function (err, req, res, next) {
  }
 
 })
+
+// catch 404 and forward to error handler
+app.use("*", (req, res) => {
+  res.status(404).json({ msg: " 404 not found" });
+});
+
+
+
+
 
 export { app }
