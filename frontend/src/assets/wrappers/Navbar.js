@@ -26,9 +26,7 @@ const Wrapper = styled.nav`
     display: none;
   }
   .logo {
-    display: flex;
-    align-items: center;
-    width: 100px;
+    border : 1px solid red 
   }
   .btn-container {
     display: flex;
