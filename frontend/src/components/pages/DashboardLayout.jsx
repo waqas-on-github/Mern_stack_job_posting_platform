@@ -36,23 +36,21 @@ const value = {user , toggleDarktheme , toggleSideBar , logout , isDarkTheme , s
 
 
   return (
-    <DashBoardContext.Provider  value={value} >
- 
-    <Wrapper>
-
-      <main>
-        <Smallsidebar />
-        <Bigsidebar />
-        <div >
-          <Navbar/>
-        </div>
-
-        <Outlet/>
-    </main>
-
-    </Wrapper>
+    <DashBoardContext.Provider value={value}>
+      <Wrapper>
+        <main className="dashboard">
+          <Smallsidebar />
+          <Bigsidebar />
+          <div>
+            <Navbar />
+            <div>
+              <Outlet className="dashboard-page" />
+            </div>
+          </div>
+        </main>
+      </Wrapper>
     </DashBoardContext.Provider>
-  )
+  );
 }
 export default DashboardLayout
 

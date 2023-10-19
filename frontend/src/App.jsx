@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import HomeLayout from "./components/pages/HomeLayout"
 import Landing from "./components/pages/Landing"
 import Register from "./components/pages/Register"
-import Login from "./components/pages/Login"
+import Login, { loginAction } from "./components/pages/Login"
 import Error from "./components/pages/Error"
 import DashboardLayout from "./components/pages/DashboardLayout"
 import AddJob from './components/pages/AddJob'
@@ -11,6 +11,7 @@ import Stats from './components/pages/Stats'
 import Profile from './components/pages/Profile'
 import Admin from "./components/pages/Admin";
 import EditJob from "./components/pages/EditJob";
+import { registerAction } from "./components/pages/Register"
 
 
 
@@ -29,10 +30,12 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
-      },
+        action: registerAction,
+      } ,
       {
         path: "login",
         element: <Login />,
+        action :loginAction
       },
     ],
   },

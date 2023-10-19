@@ -3,6 +3,7 @@ import { FaAlignLeft } from "react-icons/fa";
 import logo from "../assets/images/logo.svg";
 import { DashBoardContext } from "./pages/DashboardLayout";
 import { useContext } from "react";
+import LogoutContainer from "./Logoutcontainer";
 
 const Navbar = () => {
   const { toggleSideBar } = useContext(DashBoardContext);
@@ -17,7 +18,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" />
           <h4 className="logo-text">Dashboard </h4>
         </div>
-        <div className="btn-container">login/logout</div>
+        <LogoutContainer/>
       </div>
     </Wrapper>
   );
