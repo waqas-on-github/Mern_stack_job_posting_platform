@@ -14,6 +14,7 @@ const cookieoptions = {
 const signUp = asyncHandler(async (req, res) => {
   // name, email,password, lastName, location, role
   // incoming data  validation
+   console.log(req.body);
   const schema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
@@ -23,12 +24,13 @@ const signUp = asyncHandler(async (req, res) => {
     role: Joi.string().valid(...Object.values(USER_ROLES)).required(),
   });
 
-  // checking for errors
+  // checking for errors`
   const { error } = schema.validate(req.body);
   if (error) {
     throw new CustomError(error, 401);
   }
 
+  
   // checking for is user already exist
   const userExist = await User.findOne({ email: req?.body?.email });
 
@@ -38,17 +40,18 @@ const signUp = asyncHandler(async (req, res) => {
 
   // if theres no error or user dont exist already  so create new user
   const user = await User.create(req.body);
-
+  
   if (!user) {
     throw new CustomError("user can not be created ", 400);
   }
   // generate jwt token
   const token = await user.getJWTtoken();
-
+  
   //  safety
   user.password = undefined;
   res.cookie("token", token, cookieoptions);
-
+  console.log(req.cookies);
+  
   res.status(200).json({
     success: true,
     token,
@@ -57,6 +60,9 @@ const signUp = asyncHandler(async (req, res) => {
 });
 
 const login = asyncHandler(async (req, res) => {
+
+  console.log(req.body);
+  // console.log(req.cookie);
   // incoming data calidation
   const schema = Joi.object({
     email: Joi.string().required(),
@@ -64,6 +70,7 @@ const login = asyncHandler(async (req, res) => {
   });
 
   const { error } = schema.validate(req.body);
+
   //   checking for error
   if (error) {
     throw new CustomError(error, 400);
@@ -73,7 +80,7 @@ const login = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: req?.body?.email }).select("+password");
   // checking is user found if not send error
   if (!user) {
-    throw new CustomError("this email dose'nt exist ", 400);
+    throw new CustomError("this email dose'nt exist", 400);
   }
 
   // checking password is it correct

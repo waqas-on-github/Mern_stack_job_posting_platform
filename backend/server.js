@@ -6,6 +6,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import logger from 'morgan'
 import CustomError from './utils/CustomError.js'
+import cookieParser from 'cookie-parser'
 
 // import routers
 import { router as Jobrouter } from './routes/job.route.js'
@@ -15,6 +16,7 @@ const app = express()
 
 
 app.use(logger('dev'))
+app.use(cookieParser()); 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(
